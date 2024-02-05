@@ -291,3 +291,48 @@ function hideTodayBtn() {
 }
 
 renderCalendar();
+
+
+
+
+//Note
+function renderNotes() {
+    noteList.innerHTML = "";
+    savedNotes.forEach(function(noteText, index) {
+        const noteItem = document.createElement("li");
+        noteItem.classList.add("note-item"); // เพิ่มคลาส note-item
+
+        const deleteButton = document.createElement("button");
+        deleteButton.innerHTML = '<i class="fas fa-trash-alt"></i>'; // Add Font Awesome trash icon
+        deleteButton.classList.add("btn", "btn-danger", "btn-sm"); // Add Bootstrap button classes
+        deleteButton.setAttribute("title", "Delete"); // Add title attribute
+
+        deleteButton.addEventListener("click", function() {
+            savedNotes.splice(index, 1);
+            localStorage.setItem("notes", JSON.stringify(savedNotes));
+            renderNotes();
+        });
+
+        const editButton = document.createElement("button");
+        editButton.textContent = "แก้ไข";
+        editButton.classList.add("btn", "btn-secondary", "btn-sm"); // Add Bootstrap button classes
+
+        editButton.addEventListener("click", function() {
+            const newText = prompt("แก้ไขบันทึก", noteText);
+            if (newText !== null && newText !== "") {
+                savedNotes[index] = newText;
+                localStorage.setItem("notes", JSON.stringify(savedNotes));
+                renderNotes();
+            }
+        });
+
+        const buttonsContainer = document.createElement("div");
+        buttonsContainer.classList.add("buttons-container"); // เพิ่มคลาส buttons-container
+        buttonsContainer.appendChild(deleteButton);
+        buttonsContainer.appendChild(editButton);
+
+        noteItem.textContent = noteText;
+        noteItem.appendChild(buttonsContainer);
+        noteList.appendChild(noteItem);
+    });
+}

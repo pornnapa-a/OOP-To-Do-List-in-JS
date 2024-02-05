@@ -86,4 +86,123 @@
     <script src="./script.js"></script>
 </body>
 
+
+
+<!--เริ่มจดบันทึก-->>
+
+
+<style>
+  .card {
+      display: inline-block;
+      margin-right: 20px;
+  }
+
+  .notes {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-end;
+  }
+</style>
+
+<style>
+  .note-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+
+  .note-item .buttons-container {
+    display: flex;
+  }
+
+  .note-item button {
+    margin-left: 5px;
+  }
+</style>
+
+<aside style="float: right; width: 300px; margin-top: -350px; overflow-y: auto; max-height: 400px;">
+  <!-- เพิ่มส่วนสำหรับการจดบันทึก -->
+  <div class="card mt-4">
+      <div class="card-header">
+          <span class="title-card">
+              บันทึกโน๊ต
+          </span>
+      </div>
+      <div class="card-body">
+          <form id="note-form">
+              <textarea id="note" class="form-control mb-2" placeholder="เขียนบันทึก..." rows="3"></textarea>
+              <button type="button" id="save-note" class="btn btn-primary" title="บันทึกบันทึก">บันทึก</button>
+          </form>
+      </div>
+  </div>
+  <div class="notes mt-4">
+      <h5>โน๊ตของคุณ:</h5>
+      <ul id="note-list"></ul>
+  </div>
+</aside>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      const noteForm = document.getElementById("note-form");
+      const noteInput = document.getElementById("note");
+      const noteList = document.getElementById("note-list");
+
+      let savedNotes = JSON.parse(localStorage.getItem("notes")) || [];
+
+      function renderNotes() {
+          noteList.innerHTML = "";
+          savedNotes.forEach(function(noteText, index) {
+              const noteItem = document.createElement("li");
+              noteItem.textContent = noteText;
+
+              const deleteButton = document.createElement("button");
+              deleteButton.innerHTML = '<i class="fas fa-trash-alt"></i>'; // Add Font Awesome trash icon
+              deleteButton.classList.add("btn", "btn-danger", "btn-sm", "mx-1"); // Add Bootstrap button classes
+              deleteButton.setAttribute("title", "Delete"); // Add title attribute
+
+              deleteButton.addEventListener("click", function() {
+                  savedNotes.splice(index, 1);
+                  localStorage.setItem("notes", JSON.stringify(savedNotes));
+                  renderNotes();
+              });
+
+              const editButton = document.createElement("button");
+              editButton.textContent = "แก้ไข";
+              editButton.classList.add("btn", "btn-secondary", "btn-sm", "mx-1"); // Add Bootstrap button classes
+
+              editButton.addEventListener("click", function() {
+                  const newText = prompt("แก้ไขบันทึก", noteText);
+                  if (newText !== null && newText !== "") {
+                      savedNotes[index] = newText;
+                      localStorage.setItem("notes", JSON.stringify(savedNotes));
+                      renderNotes();
+                  }
+              });
+
+              noteItem.appendChild(deleteButton);
+              noteItem.appendChild(editButton);
+              noteList.appendChild(noteItem);
+          });
+      }
+
+      renderNotes();
+
+      document.getElementById("save-note").addEventListener("click", function(event) {
+          event.preventDefault();
+
+          const noteText = noteInput.value.trim();
+          if (noteText === '') return;
+
+          savedNotes.push(noteText);
+          localStorage.setItem("notes", JSON.stringify(savedNotes));
+
+          renderNotes();
+
+          noteInput.value = '';
+      });
+  });
+</script>
+
 </html>

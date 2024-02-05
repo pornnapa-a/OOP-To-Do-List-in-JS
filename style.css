@@ -268,3 +268,130 @@ body {
   color: #fff;
   background: var(--primary-color);
 }
+
+/* สไตล์สำหรับรายการบันทึกแต่ละรายการ */
+
+/* สไตล์สำหรับส่วนบันทึก */
+.notes {
+    margin-top: 20px;
+    max-height: 300px; /* ระบุความสูงสูงสุดของพื้นที่บันทึก */
+    overflow-y: auto; /* เพิ่มแถบเลื่อนแนวตั้ง */
+}
+
+/* สไตล์สำหรับรายการบันทึกแต่ละรายการ */
+.notes ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0; /* เพื่อป้องกันการเว้นระยะห่างของรายการ */
+}
+
+.notes li {
+    margin-bottom: 10px;
+    background-color: #f0f0f0;
+    padding: 15px;
+    border-radius: 8px;
+    position: relative;
+    border: 2px solid #ccc; /* เพิ่มเส้นขอบ */
+}
+
+.notes {
+    margin-top: 20px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.notes ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.notes li {
+    margin-bottom: 10px;
+    background-color: #f0f0f0;
+    padding: 15px;
+    border-radius: 8px;
+    position: relative;
+    border: 2px solid #ccc;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: #333; /* Darker text color */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle box shadow */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.notes li:hover {
+    background-color: #e0e0e0; /* Lighter background color on hover */
+    transform: scale(1.02); /* Slight scale effect on hover */
+}
+
+.notes li::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: -2px;
+    right: -2px;
+    top: -2px;
+    border-radius: 8px;
+    z-index: -1;
+    background: linear-gradient(45deg, #f0f0f0, #ffffff); /* Gradient background */
+}
+
+.to-do-list-container {
+    max-height: 300px; /* Set a maximum height for the container */
+    overflow-y: auto; /* Add a vertical scrollbar when content overflows */
+}
+
+
+
+/*ตกแต่ง */
+aside {
+    float: right;
+    width: 300px;
+    margin-top: -20px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto; /* หรือ overflow-y: scroll; */
+  }
+
+.title-card {
+  font-size: 18px;
+  color: #333;
+  font-weight: bold;
+}
+
+#note {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+#save-note {
+  background-color: #007bff;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 3px;
+}
+
+#note-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.notes h5 {
+  margin-top: 20px;
+  font-size: 16px;
+  color: #ee8787;
+}
+
+.notes {
+    max-height: 300px; /* Adjust as needed */
+    overflow-y: auto;
+  }
+  
+  
